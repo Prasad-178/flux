@@ -149,7 +149,7 @@ Access Grafana after deploying observability:
 
 ```bash
 make grafana-port  # Opens localhost:3000
-# Login: admin / asyncscale
+# Login: admin / flux
 ```
 
 Dashboard includes:

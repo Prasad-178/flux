@@ -140,7 +140,7 @@ k8s-observability:
 	kubectl apply -f k8s/observability/grafana-deployment.yaml
 	@echo ""
 	@echo "✅ Observability deployed!"
-	@echo "   Grafana: make grafana-port (admin/asyncscale)"
+	@echo "   Grafana: make grafana-port (admin/flux)"
 	@echo "   Prometheus: make prometheus-port"
 
 k8s-helm-deploy:
@@ -181,7 +181,7 @@ k8s-status:
 
 grafana-port:
 	@echo "📊 Opening Grafana at http://localhost:3000"
-	@echo "   Login: admin / asyncscale"
+	@echo "   Login: admin / flux"
 	kubectl port-forward -n Flux svc/grafana 3000:3000
 
 prometheus-port:
