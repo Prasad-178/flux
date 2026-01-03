@@ -51,7 +51,7 @@ services:
       - QUEUE_NAME=llm_queue
       - CHANNEL_PREFIX=task_channel
       - MODEL_PATH=/models/Qwen3-1.7B-Q8_0.gguf
-      - N_CTX=2048
+      - N_CTX=512
       - N_THREADS=4
       - N_GPU_LAYERS=0
     volumes:
@@ -62,13 +62,9 @@ services:
     networks:
       - Flux-network
     restart: unless-stopped
-    # Resource limits for CPU inference
-    deploy:
-      resources:
-        limits:
-          memory: 8G
-        reservations:
-          memory: 4G
+    # Don't use deploy.resources for local testing - Docker Desktop handles memory differently
+    mem_limit: 6g
+    memswap_limit: 8g
 
 networks:
   Flux-network:
@@ -76,4 +72,3 @@ networks:
 
 volumes:
   redis_data:
-

@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: Flux-config
-  namespace: Flux
+  namespace: flux
   labels:
     app.kubernetes.io/name: Flux
 data:

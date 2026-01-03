@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: grafana-datasources
-  namespace: Flux
+  namespace: flux
 data:
   datasources.yaml: |
     apiVersion: 1
@@ -20,7 +20,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: grafana-dashboards-config
-  namespace: Flux
+  namespace: flux
 data:
   dashboards.yaml: |
     apiVersion: 1
@@ -39,7 +39,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: grafana-dashboards
-  namespace: Flux
+  namespace: flux
 data:
   Flux.json: |
     {

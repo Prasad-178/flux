@@ -4,7 +4,7 @@ apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
   name: worker-scaledobject
-  namespace: Flux
+  namespace: flux
   labels:
     app: worker
     app.kubernetes.io/name: worker
@@ -32,7 +32,7 @@ apiVersion: keda.sh/v1alpha1
 kind: TriggerAuthentication
 metadata:
   name: keda-redis-auth
-  namespace: Flux
+  namespace: flux
 spec:
   secretTargetRef: []  # No auth for local dev, add Redis password secret for production
 

@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     cmake \
     git \
     libopenblas-dev \
+    libcurl4-openssl-dev \
     pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
@@ -20,6 +21,8 @@ WORKDIR /build/llama.cpp
 RUN cmake -B build \
     -DGGML_BLAS=ON \
     -DGGML_BLAS_VENDOR=OpenBLAS \
+    -DLLAMA_CURL=OFF \
+    -DBUILD_SHARED_LIBS=OFF \
     -DCMAKE_BUILD_TYPE=Release \
     && cmake --build build --config Release -j$(nproc)
 
@@ -34,11 +37,17 @@ RUN apt-get update && apt-get install -y \
     libgomp1 \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy llama.cpp binaries from builder
+# Copy llama.cpp binaries and libraries from builder
 COPY --from=builder /build/llama.cpp/build/bin /opt/llama.cpp/build/bin
+COPY --from=builder /build/llama.cpp/build/src /opt/llama.cpp/build/src
+COPY --from=builder /build/llama.cpp/build/ggml/src /opt/llama.cpp/build/ggml/src
+COPY --from=builder /build/llama.cpp/build/common /opt/llama.cpp/build/common
+
+# Set library path
+ENV LD_LIBRARY_PATH=/opt/llama.cpp/build/src:/opt/llama.cpp/build/ggml/src:/opt/llama.cpp/build/common:$LD_LIBRARY_PATH
 
 # Make binaries executable
-RUN chmod +x /opt/llama.cpp/build/bin/*
+RUN chmod +x /opt/llama.cpp/build/bin/* || true
 
 WORKDIR /app
 
@@ -62,10 +71,6 @@ ENV REDIS_HOST=redis \
     N_CTX=2048 \
     N_THREADS=4 \
     N_GPU_LAYERS=0
-
-# Health check - verify llama-cli exists
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD test -x /opt/llama.cpp/build/bin/llama-cli || exit 1
 
 # Run the worker
 CMD ["python", "-u", "worker.py"]

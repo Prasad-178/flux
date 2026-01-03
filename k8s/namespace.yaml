@@ -2,8 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: Flux
+  name: flux
   labels:
-    app.kubernetes.io/name: Flux
-    app.kubernetes.io/part-of: Flux
-
+    app.kubernetes.io/name: flux
+    app.kubernetes.io/part-of: flux

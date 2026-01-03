@@ -115,7 +115,7 @@ k8s-deploy:
 	@echo "☸️  Deploying to Kubernetes..."
 	kubectl apply -f k8s/namespace.yaml
 	helm install redis oci://registry-1.docker.io/bitnami/charts/redis \
-		--namespace Flux \
+		--namespace flux \
 		--set auth.enabled=false \
 		--set architecture=standalone \
 		--wait || true
@@ -145,8 +145,8 @@ k8s-observability:
 
 k8s-helm-deploy:
 	@echo "☸️  Deploying with Helm..."
-	kubectl create namespace Flux --dry-run=client -o yaml | kubectl apply -f -
-	helm install Flux ./k8s/charts/llm-stack --namespace Flux
+	kubectl create namespace flux --dry-run=client -o yaml | kubectl apply -f -
+	helm install flux ./k8s/charts/llm-stack --namespace flux
 	@echo "✅ Deployed with Helm!"
 
 k8s-clean:
@@ -157,23 +157,23 @@ k8s-clean:
 	-kubectl delete -f k8s/gateway-deployment.yaml
 	-kubectl delete -f k8s/configmap.yaml
 	-kubectl delete -f k8s/observability/
-	-helm uninstall redis --namespace Flux
-	-kubectl delete namespace Flux
+	-helm uninstall redis --namespace flux
+	-kubectl delete namespace flux
 
 k8s-status:
 	@echo "📊 Cluster Status:"
 	@echo ""
 	@echo "Pods:"
-	@kubectl get pods -n Flux
+	@kubectl get pods -n flux
 	@echo ""
 	@echo "Services:"
-	@kubectl get svc -n Flux
+	@kubectl get svc -n flux
 	@echo ""
 	@echo "KEDA ScaledObject:"
-	@kubectl get scaledobject -n Flux 2>/dev/null || echo "  Not found"
+	@kubectl get scaledobject -n flux 2>/dev/null || echo "  Not found"
 	@echo ""
 	@echo "HPA (managed by KEDA):"
-	@kubectl get hpa -n Flux 2>/dev/null || echo "  Not found"
+	@kubectl get hpa -n flux 2>/dev/null || echo "  Not found"
 
 # ═══════════════════════════════════════════════════════════════
 # Observability Port Forwarding
@@ -182,11 +182,11 @@ k8s-status:
 grafana-port:
 	@echo "📊 Opening Grafana at http://localhost:3000"
 	@echo "   Login: admin / flux"
-	kubectl port-forward -n Flux svc/grafana 3000:3000
+	kubectl port-forward -n flux svc/grafana 3000:3000
 
 prometheus-port:
 	@echo "📊 Opening Prometheus at http://localhost:9090"
-	kubectl port-forward -n Flux svc/prometheus 9090:9090
+	kubectl port-forward -n flux svc/prometheus 9090:9090
 
 # ═══════════════════════════════════════════════════════════════
 # Development

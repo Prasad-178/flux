@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: prometheus-config
-  namespace: Flux
+  namespace: flux
   labels:
     app: prometheus
 data:

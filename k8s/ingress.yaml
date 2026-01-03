@@ -4,7 +4,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: Flux-ingress
-  namespace: Flux
+  namespace: flux
   labels:
     app.kubernetes.io/name: Flux
   annotations:
