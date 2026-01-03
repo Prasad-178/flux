@@ -1,4 +1,4 @@
-# Async-Scale Makefile
+# Flux Makefile
 # Common operations for development and deployment
 
 .PHONY: help setup download-model dev docker-build docker-up docker-down k8s-setup k8s-deploy k8s-clean test lint
@@ -6,7 +6,7 @@
 # Default target
 help:
 	@echo "╔══════════════════════════════════════════════════════════════╗"
-	@echo "║            ⚡ Async-Scale: LLM Orchestration                  ║"
+	@echo "║            ⚡ Flux: LLM Orchestration                  ║"
 	@echo "╚══════════════════════════════════════════════════════════════╝"
 	@echo ""
 	@echo "📦 Setup Commands:"
@@ -115,7 +115,7 @@ k8s-deploy:
 	@echo "☸️  Deploying to Kubernetes..."
 	kubectl apply -f k8s/namespace.yaml
 	helm install redis oci://registry-1.docker.io/bitnami/charts/redis \
-		--namespace async-scale \
+		--namespace Flux \
 		--set auth.enabled=false \
 		--set architecture=standalone \
 		--wait || true
@@ -145,8 +145,8 @@ k8s-observability:
 
 k8s-helm-deploy:
 	@echo "☸️  Deploying with Helm..."
-	kubectl create namespace async-scale --dry-run=client -o yaml | kubectl apply -f -
-	helm install async-scale ./k8s/charts/llm-stack --namespace async-scale
+	kubectl create namespace Flux --dry-run=client -o yaml | kubectl apply -f -
+	helm install Flux ./k8s/charts/llm-stack --namespace Flux
 	@echo "✅ Deployed with Helm!"
 
 k8s-clean:
@@ -157,23 +157,23 @@ k8s-clean:
 	-kubectl delete -f k8s/gateway-deployment.yaml
 	-kubectl delete -f k8s/configmap.yaml
 	-kubectl delete -f k8s/observability/
-	-helm uninstall redis --namespace async-scale
-	-kubectl delete namespace async-scale
+	-helm uninstall redis --namespace Flux
+	-kubectl delete namespace Flux
 
 k8s-status:
 	@echo "📊 Cluster Status:"
 	@echo ""
 	@echo "Pods:"
-	@kubectl get pods -n async-scale
+	@kubectl get pods -n Flux
 	@echo ""
 	@echo "Services:"
-	@kubectl get svc -n async-scale
+	@kubectl get svc -n Flux
 	@echo ""
 	@echo "KEDA ScaledObject:"
-	@kubectl get scaledobject -n async-scale 2>/dev/null || echo "  Not found"
+	@kubectl get scaledobject -n Flux 2>/dev/null || echo "  Not found"
 	@echo ""
 	@echo "HPA (managed by KEDA):"
-	@kubectl get hpa -n async-scale 2>/dev/null || echo "  Not found"
+	@kubectl get hpa -n Flux 2>/dev/null || echo "  Not found"
 
 # ═══════════════════════════════════════════════════════════════
 # Observability Port Forwarding
@@ -182,11 +182,11 @@ k8s-status:
 grafana-port:
 	@echo "📊 Opening Grafana at http://localhost:3000"
 	@echo "   Login: admin / asyncscale"
-	kubectl port-forward -n async-scale svc/grafana 3000:3000
+	kubectl port-forward -n Flux svc/grafana 3000:3000
 
 prometheus-port:
 	@echo "📊 Opening Prometheus at http://localhost:9090"
-	kubectl port-forward -n async-scale svc/prometheus 9090:9090
+	kubectl port-forward -n Flux svc/prometheus 9090:9090
 
 # ═══════════════════════════════════════════════════════════════
 # Development

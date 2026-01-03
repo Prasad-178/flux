@@ -64,7 +64,7 @@ async def lifespan(app: FastAPI):
     """Manage application lifecycle"""
     global redis_pool
     
-    print("🚀 Starting Async-Scale Gateway...")
+    print("🚀 Starting Flux Gateway...")
     print(f"🔗 Connecting to Redis at {REDIS_HOST}:{REDIS_PORT}")
     
     # Create Redis connection pool
@@ -97,7 +97,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Async-Scale Gateway",
+    title="Flux Gateway",
     description="Event-driven LLM Orchestration API",
     version="1.0.0",
     lifespan=lifespan,
@@ -123,7 +123,7 @@ TEST_CLIENT_HTML = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Async-Scale LLM Chat</title>
+    <title>Flux LLM Chat</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -259,7 +259,7 @@ TEST_CLIENT_HTML = """
 <body>
     <div class="container">
         <header>
-            <h1>⚡ Async-Scale</h1>
+            <h1>⚡ Flux</h1>
             <p class="subtitle">Event-Driven LLM Orchestration • Real-Time Token Streaming</p>
         </header>
         

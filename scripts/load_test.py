@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Load Testing Script for Async-Scale
+Load Testing Script for Flux
 Floods the queue with requests to trigger KEDA autoscaling
 """
 
@@ -107,7 +107,7 @@ async def run_load_test(
 ):
     """Run the load test"""
     print("=" * 60)
-    print("⚡ Async-Scale Load Tester")
+    print("⚡ Flux Load Tester")
     print("=" * 60)
     print(f"📍 Target: {url}")
     print(f"📊 Requests: {num_requests}")
@@ -199,15 +199,15 @@ async def flood_queue(url: str, num_requests: int):
     print(f"✅ Queued {success}/{num_requests} requests")
     print()
     print("📊 Monitor KEDA scaling with:")
-    print("   kubectl get pods -n async-scale -w")
-    print("   kubectl get scaledobject -n async-scale")
+    print("   kubectl get pods -n Flux -w")
+    print("   kubectl get scaledobject -n Flux")
     print()
     print("📈 Check queue length:")
     print(f"   curl {url}/queue/status")
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Async-Scale Load Tester")
+    parser = argparse.ArgumentParser(description="Flux Load Tester")
     parser.add_argument(
         "--url",
         default="http://localhost:8000",

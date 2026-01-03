@@ -1,9 +1,9 @@
-# Prometheus Deployment for Async-Scale
+# Prometheus Deployment for Flux
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: prometheus
-  namespace: async-scale
+  namespace: Flux
   labels:
     app: prometheus
 spec:
@@ -50,7 +50,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: prometheus
-  namespace: async-scale
+  namespace: Flux
 spec:
   type: ClusterIP
   selector:
@@ -64,7 +64,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: prometheus
-  namespace: async-scale
+  namespace: Flux
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -99,5 +99,5 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: prometheus
-    namespace: async-scale
+    namespace: Flux
 

@@ -251,7 +251,7 @@ def main():
     signal.signal(signal.SIGTERM, signal_handler)
     
     print("=" * 60)
-    print("🚀 Async-Scale Inference Worker Starting...")
+    print("🚀 Flux Inference Worker Starting...")
     print("   Using native llama.cpp CLI")
     print("=" * 60)
     

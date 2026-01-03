@@ -1,9 +1,9 @@
-# Prometheus Configuration for Async-Scale
+# Prometheus Configuration for Flux
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: prometheus-config
-  namespace: async-scale
+  namespace: Flux
   labels:
     app: prometheus
 data:
@@ -19,7 +19,7 @@ data:
           - role: pod
             namespaces:
               names:
-                - async-scale
+                - Flux
         relabel_configs:
           - source_labels: [__meta_kubernetes_pod_label_app]
             action: keep

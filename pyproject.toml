@@ -1,5 +1,5 @@
 [project]
-name = "async-scale"
+name = "Flux"
 version = "1.0.0"
 description = "Event-Driven LLM Orchestration with Kubernetes, KEDA, and WebSocket Streaming"
 readme = "README.md"

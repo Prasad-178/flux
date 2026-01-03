@@ -4,11 +4,11 @@ apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
   name: worker-scaledobject
-  namespace: async-scale
+  namespace: Flux
   labels:
     app: worker
     app.kubernetes.io/name: worker
-    app.kubernetes.io/part-of: async-scale
+    app.kubernetes.io/part-of: Flux
 spec:
   scaleTargetRef:
     name: worker
@@ -20,7 +20,7 @@ spec:
     - type: redis
       metadata:
         # Redis connection
-        address: redis-master.async-scale.svc.cluster.local:6379
+        address: redis-master.Flux.svc.cluster.local:6379
         listName: llm_queue
         listLength: "2"           # Scale up when > 2 jobs in queue
       authenticationRef:
@@ -32,7 +32,7 @@ apiVersion: keda.sh/v1alpha1
 kind: TriggerAuthentication
 metadata:
   name: keda-redis-auth
-  namespace: async-scale
+  namespace: Flux
 spec:
   secretTargetRef: []  # No auth for local dev, add Redis password secret for production
 

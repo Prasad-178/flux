@@ -1,4 +1,4 @@
-# ⚡ Async-Scale: Event-Driven LLM Orchestration
+# ⚡ Flux: Event-Driven LLM Orchestration
 
 > High-performance, autoscaling inference architecture using Kubernetes, KEDA, and WebSockets for real-time token streaming.
 
@@ -172,7 +172,7 @@ make load-test
 make load-test-heavy
 
 # Watch KEDA scale workers
-kubectl get pods -n async-scale -w
+kubectl get pods -n Flux -w
 ```
 
 ### KEDA Autoscaling Demo
@@ -182,7 +182,7 @@ kubectl get pods -n async-scale -w
 make flood-queue
 
 # Watch KEDA scale workers from 1 → N
-kubectl get pods -n async-scale -w
+kubectl get pods -n Flux -w
 
 # Check queue status
 make queue-status
@@ -191,7 +191,7 @@ make queue-status
 ## 📁 Project Structure
 
 ```
-async-scale/
+Flux/
 ├── services/
 │   ├── gateway/              # FastAPI WebSocket Gateway
 │   │   ├── gateway.py        # WebSocket handling, Prometheus metrics

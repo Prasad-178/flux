@@ -1,4 +1,4 @@
-# Async-Scale Helm Chart
+# Flux Helm Chart
 apiVersion: v2
 name: llm-stack
 description: Event-Driven LLM Orchestration Stack with Gateway and Worker
@@ -13,9 +13,9 @@ keywords:
   - inference
 maintainers:
   - name: Prasad
-home: https://github.com/prasad/async-scale
+home: https://github.com/prasad/Flux
 sources:
-  - https://github.com/prasad/async-scale
+  - https://github.com/prasad/Flux
 dependencies:
   - name: redis
     version: "~18.0.0"

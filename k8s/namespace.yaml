@@ -1,9 +1,9 @@
-# Async-Scale Kubernetes Namespace
+# Flux Kubernetes Namespace
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: async-scale
+  name: Flux
   labels:
-    app.kubernetes.io/name: async-scale
-    app.kubernetes.io/part-of: async-scale
+    app.kubernetes.io/name: Flux
+    app.kubernetes.io/part-of: Flux
 

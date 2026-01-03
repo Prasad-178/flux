@@ -1,9 +1,9 @@
-# Grafana Configuration for Async-Scale
+# Grafana Configuration for Flux
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: grafana-datasources
-  namespace: async-scale
+  namespace: Flux
 data:
   datasources.yaml: |
     apiVersion: 1
@@ -20,7 +20,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: grafana-dashboards-config
-  namespace: async-scale
+  namespace: Flux
 data:
   dashboards.yaml: |
     apiVersion: 1
@@ -39,9 +39,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: grafana-dashboards
-  namespace: async-scale
+  namespace: Flux
 data:
-  async-scale.json: |
+  Flux.json: |
     {
       "annotations": {
         "list": []
@@ -171,7 +171,7 @@ data:
           "pluginVersion": "10.1.0",
           "targets": [
             {
-              "expr": "count(kube_pod_info{namespace=\"async-scale\", pod=~\".*worker.*\"})",
+              "expr": "count(kube_pod_info{namespace=\"Flux\", pod=~\".*worker.*\"})",
               "legendFormat": "Worker Pods",
               "refId": "A"
             }
@@ -336,13 +336,13 @@ data:
       "refresh": "5s",
       "schemaVersion": 38,
       "style": "dark",
-      "tags": ["async-scale", "llm"],
+      "tags": ["Flux", "llm"],
       "templating": {"list": []},
       "time": {"from": "now-15m", "to": "now"},
       "timepicker": {},
       "timezone": "",
-      "title": "Async-Scale LLM Dashboard",
-      "uid": "async-scale-main",
+      "title": "Flux LLM Dashboard",
+      "uid": "Flux-main",
       "version": 1,
       "weekStart": ""
     }

@@ -8,7 +8,7 @@ MODEL_FILE="Qwen3-1.7B-Q8_0.gguf"
 MODEL_URL="https://huggingface.co/unsloth/Qwen3-1.7B-GGUF/resolve/main/Qwen3-1.7B-Q8_0.gguf"
 
 echo "=============================================="
-echo "  Async-Scale Model Downloader"
+echo "  Flux Model Downloader"
 echo "=============================================="
 echo ""
 

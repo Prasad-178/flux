@@ -1,14 +1,14 @@
-# Async-Scale Gateway Deployment
+# Flux Gateway Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gateway
-  namespace: async-scale
+  namespace: Flux
   labels:
     app: gateway
     app.kubernetes.io/name: gateway
     app.kubernetes.io/component: api
-    app.kubernetes.io/part-of: async-scale
+    app.kubernetes.io/part-of: Flux
 spec:
   replicas: 2
   selector:
@@ -28,7 +28,7 @@ spec:
               name: http
           envFrom:
             - configMapRef:
-                name: async-scale-config
+                name: Flux-config
           resources:
             requests:
               memory: "256Mi"
@@ -55,7 +55,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: gateway
-  namespace: async-scale
+  namespace: Flux
   labels:
     app: gateway
 spec:

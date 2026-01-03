@@ -1,11 +1,11 @@
-# Async-Scale: Local Development Environment
+# Flux: Local Development Environment
 # docker-compose up --build
 
 services:
   # Redis - Message Broker & Pub/Sub
   redis:
     image: redis:7-alpine
-    container_name: async-scale-redis
+    container_name: Flux-redis
     ports:
       - "6379:6379"
     volumes:
@@ -17,14 +17,14 @@ services:
       timeout: 3s
       retries: 5
     networks:
-      - async-scale-network
+      - Flux-network
 
   # API Gateway - WebSocket Handler
   gateway:
     build:
       context: ./services/gateway
       dockerfile: Dockerfile
-    container_name: async-scale-gateway
+    container_name: Flux-gateway
     ports:
       - "8000:8000"
     environment:
@@ -36,7 +36,7 @@ services:
       redis:
         condition: service_healthy
     networks:
-      - async-scale-network
+      - Flux-network
     restart: unless-stopped
 
   # Inference Worker - LLM Processing
@@ -44,7 +44,7 @@ services:
     build:
       context: ./services/worker
       dockerfile: Dockerfile
-    container_name: async-scale-worker
+    container_name: Flux-worker
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
@@ -60,7 +60,7 @@ services:
       redis:
         condition: service_healthy
     networks:
-      - async-scale-network
+      - Flux-network
     restart: unless-stopped
     # Resource limits for CPU inference
     deploy:
@@ -71,7 +71,7 @@ services:
           memory: 4G
 
 networks:
-  async-scale-network:
+  Flux-network:
     driver: bridge
 
 volumes:

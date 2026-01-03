@@ -1,4 +1,4 @@
-# 🚀 Async-Scale: Event-Driven LLM Orchestration on Kubernetes
+# 🚀 Flux: Event-Driven LLM Orchestration on Kubernetes
 
 > A high-performance, autoscaling inference architecture using Kubernetes, KEDA, and WebSockets for real-time token streaming.
 

@@ -1,2 +1,2 @@
-# Async-Scale Gateway Service
+# Flux Gateway Service
 

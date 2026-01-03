@@ -158,7 +158,7 @@ wheels = [
 ]
 
 [[package]]
-name = "async-scale"
+name = "Flux"
 version = "1.0.0"
 source = { virtual = "." }
 dependencies = [

@@ -1,14 +1,14 @@
-# Async-Scale Configuration
+# Flux Configuration
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: async-scale-config
-  namespace: async-scale
+  name: Flux-config
+  namespace: Flux
   labels:
-    app.kubernetes.io/name: async-scale
+    app.kubernetes.io/name: Flux
 data:
   # Redis Configuration
-  REDIS_HOST: "redis-master.async-scale.svc.cluster.local"
+  REDIS_HOST: "redis-master.Flux.svc.cluster.local"
   REDIS_PORT: "6379"
   
   # Queue Configuration

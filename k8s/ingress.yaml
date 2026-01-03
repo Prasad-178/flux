@@ -1,12 +1,12 @@
-# Async-Scale Ingress
+# Flux Ingress
 # Routes external traffic to the Gateway service
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: async-scale-ingress
-  namespace: async-scale
+  name: Flux-ingress
+  namespace: Flux
   labels:
-    app.kubernetes.io/name: async-scale
+    app.kubernetes.io/name: Flux
   annotations:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
