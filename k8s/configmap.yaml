@@ -1,0 +1,23 @@
+# Async-Scale Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: async-scale-config
+  namespace: async-scale
+  labels:
+    app.kubernetes.io/name: async-scale
+data:
+  # Redis Configuration
+  REDIS_HOST: "redis-master.async-scale.svc.cluster.local"
+  REDIS_PORT: "6379"
+  
+  # Queue Configuration
+  QUEUE_NAME: "llm_queue"
+  CHANNEL_PREFIX: "task_channel"
+  
+  # Model Configuration
+  MODEL_PATH: "/models/Qwen3-1.7B-Q8_0.gguf"
+  N_CTX: "2048"
+  N_THREADS: "4"
+  N_GPU_LAYERS: "0"
+

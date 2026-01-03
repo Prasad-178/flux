@@ -1,0 +1,4 @@
+# Inference Worker Dependencies
+# Note: Using native llama.cpp CLI, not Python bindings
+redis==7.1.0
+python-dotenv==1.2.1

@@ -1,0 +1,38 @@
+# KEDA ScaledObject for Worker Autoscaling
+# Scales workers based on Redis queue depth
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: worker-scaledobject
+  namespace: async-scale
+  labels:
+    app: worker
+    app.kubernetes.io/name: worker
+    app.kubernetes.io/part-of: async-scale
+spec:
+  scaleTargetRef:
+    name: worker
+  pollingInterval: 5              # Check queue every 5 seconds
+  cooldownPeriod: 30              # Wait 30s before scaling down
+  minReplicaCount: 1              # Always have at least 1 worker
+  maxReplicaCount: 10             # Max 10 workers
+  triggers:
+    - type: redis
+      metadata:
+        # Redis connection
+        address: redis-master.async-scale.svc.cluster.local:6379
+        listName: llm_queue
+        listLength: "2"           # Scale up when > 2 jobs in queue
+      authenticationRef:
+        name: keda-redis-auth
+
+---
+# KEDA Trigger Authentication for Redis
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: keda-redis-auth
+  namespace: async-scale
+spec:
+  secretTargetRef: []  # No auth for local dev, add Redis password secret for production
+

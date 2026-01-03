@@ -1,0 +1,29 @@
+# Async-Scale Ingress
+# Routes external traffic to the Gateway service
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: async-scale-ingress
+  namespace: async-scale
+  labels:
+    app.kubernetes.io/name: async-scale
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    # WebSocket support
+    nginx.ingress.kubernetes.io/websocket-services: "gateway"
+    nginx.ingress.kubernetes.io/upstream-hash-by: "$request_uri"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: api.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gateway
+                port:
+                  number: 8000
+

@@ -1,0 +1,60 @@
+# Async-Scale Worker Deployment
+# Note: This deployment is managed by KEDA ScaledObject
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  namespace: async-scale
+  labels:
+    app: worker
+    app.kubernetes.io/name: worker
+    app.kubernetes.io/component: inference
+    app.kubernetes.io/part-of: async-scale
+spec:
+  replicas: 1  # KEDA will manage this
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+        - name: worker
+          image: llm-worker:v1
+          imagePullPolicy: Never  # Use local image in Minikube
+          envFrom:
+            - configMapRef:
+                name: async-scale-config
+          volumeMounts:
+            - name: models
+              mountPath: /models
+              readOnly: true
+          resources:
+            requests:
+              memory: "4Gi"
+              cpu: "2"
+            limits:
+              memory: "8Gi"
+              cpu: "4"
+      volumes:
+        - name: models
+          persistentVolumeClaim:
+            claimName: models-pvc
+
+---
+# Model Storage PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: models-pvc
+  namespace: async-scale
+spec:
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: standard
+

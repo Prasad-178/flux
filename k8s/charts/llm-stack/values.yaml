@@ -1,0 +1,76 @@
+# Async-Scale Helm Values
+# Default configuration values
+
+# Gateway Configuration
+gateway:
+  replicaCount: 2
+  image:
+    repository: llm-gateway
+    tag: v1
+    pullPolicy: Never  # IfNotPresent for remote registry
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+  service:
+    type: ClusterIP
+    port: 8000
+
+# Worker Configuration
+worker:
+  replicaCount: 1  # KEDA manages this
+  image:
+    repository: llm-worker
+    tag: v1
+    pullPolicy: Never  # IfNotPresent for remote registry
+  resources:
+    requests:
+      memory: "4Gi"
+      cpu: "2"
+    limits:
+      memory: "8Gi"
+      cpu: "4"
+  model:
+    path: /models/Qwen3-1.7B-Q8_0.gguf
+    contextSize: 2048
+    threads: 4
+    gpuLayers: 0
+
+# Redis Configuration (Bitnami subchart)
+redis:
+  enabled: true
+  architecture: standalone
+  auth:
+    enabled: false
+  master:
+    persistence:
+      enabled: true
+      size: 1Gi
+
+# KEDA Configuration
+keda:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 10
+  pollingInterval: 5
+  cooldownPeriod: 30
+  queueThreshold: 2
+
+# Ingress Configuration
+ingress:
+  enabled: true
+  className: nginx
+  host: api.local
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/websocket-services: "gateway"
+
+# Common Configuration
+config:
+  queueName: llm_queue
+  channelPrefix: task_channel
+

@@ -1,0 +1,9 @@
+# Async-Scale Kubernetes Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: async-scale
+  labels:
+    app.kubernetes.io/name: async-scale
+    app.kubernetes.io/part-of: async-scale
+

@@ -1,0 +1,24 @@
+# Async-Scale Helm Chart
+apiVersion: v2
+name: llm-stack
+description: Event-Driven LLM Orchestration Stack with Gateway and Worker
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - llm
+  - kubernetes
+  - keda
+  - websocket
+  - inference
+maintainers:
+  - name: Prasad
+home: https://github.com/prasad/async-scale
+sources:
+  - https://github.com/prasad/async-scale
+dependencies:
+  - name: redis
+    version: "~18.0.0"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: redis.enabled
+
