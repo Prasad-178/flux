@@ -28,7 +28,7 @@ spec:
               name: http
           envFrom:
             - configMapRef:
-                name: Flux-config
+                name: flux-config
           resources:
             requests:
               memory: "256Mi"

@@ -19,7 +19,7 @@ data:
           - role: pod
             namespaces:
               names:
-                - Flux
+                - flux
         relabel_configs:
           - source_labels: [__meta_kubernetes_pod_label_app]
             action: keep

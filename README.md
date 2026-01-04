@@ -172,7 +172,7 @@ make load-test
 make load-test-heavy
 
 # Watch KEDA scale workers
-kubectl get pods -n Flux -w
+kubectl get pods -n flux -w
 ```
 
 ### KEDA Autoscaling Demo
@@ -182,7 +182,7 @@ kubectl get pods -n Flux -w
 make flood-queue
 
 # Watch KEDA scale workers from 1 → N
-kubectl get pods -n Flux -w
+kubectl get pods -n flux -w
 
 # Check queue status
 make queue-status
@@ -250,7 +250,3 @@ Flux/
 - **KEDA Operators**: Extending K8s with queue-based autoscaling
 - **Native llama.cpp**: Building from source for best performance
 - **LLMOps**: Serving quantized models efficiently on CPU
-
-## 📄 License
-
-MIT License

@@ -2,13 +2,13 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: Flux-config
+  name: flux-config
   namespace: flux
   labels:
-    app.kubernetes.io/name: Flux
+    app.kubernetes.io/name: flux
 data:
   # Redis Configuration
-  REDIS_HOST: "redis-master.Flux.svc.cluster.local"
+  REDIS_HOST: "redis-master.flux.svc.cluster.local"
   REDIS_PORT: "6379"
   
   # Queue Configuration

@@ -114,11 +114,18 @@ k8s-build:
 k8s-deploy:
 	@echo "☸️  Deploying to Kubernetes..."
 	kubectl apply -f k8s/namespace.yaml
-	helm install redis oci://registry-1.docker.io/bitnami/charts/redis \
+	@echo "📦 Adding bitnami helm repo..."
+	helm repo add bitnami https://charts.bitnami.com/bitnami 2>/dev/null || true
+	helm repo update
+	@echo "🔗 Installing Redis..."
+	helm install redis bitnami/redis \
 		--namespace flux \
 		--set auth.enabled=false \
 		--set architecture=standalone \
 		--wait || true
+	@echo "📁 Mounting models directory into Minikube..."
+	minikube mount $$(pwd)/models:/models &
+	@sleep 3
 	kubectl apply -f k8s/configmap.yaml
 	kubectl apply -f k8s/gateway-deployment.yaml
 	kubectl apply -f k8s/worker-deployment.yaml

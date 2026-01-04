@@ -20,7 +20,7 @@ spec:
     - type: redis
       metadata:
         # Redis connection
-        address: redis-master.Flux.svc.cluster.local:6379
+        address: redis-master.flux.svc.cluster.local:6379
         listName: llm_queue
         listLength: "2"           # Scale up when > 2 jobs in queue
       authenticationRef:

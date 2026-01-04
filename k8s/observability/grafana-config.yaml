@@ -10,6 +10,7 @@ data:
     datasources:
       - name: Prometheus
         type: prometheus
+        uid: prometheus
         access: proxy
         url: http://prometheus:9090
         isDefault: true
@@ -171,7 +172,7 @@ data:
           "pluginVersion": "10.1.0",
           "targets": [
             {
-              "expr": "count(kube_pod_info{namespace=\"Flux\", pod=~\".*worker.*\"})",
+              "expr": "count(kube_pod_info{namespace=\"flux\", pod=~\".*worker.*\"})",
               "legendFormat": "Worker Pods",
               "refId": "A"
             }
